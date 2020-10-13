@@ -4,7 +4,7 @@
 ### Nettoyage de la compilation 
 clean:
 	@ rm -rf $(EXEC)
-	@ rm -rf ./bin/*
+	@ rm -rf ./bin
 
 ### Nettoyage complet
 mrproper: clean $(addprefix clean-sub-projet-, $(SUB_PROJET)) 
