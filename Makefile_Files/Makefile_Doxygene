@@ -1,0 +1,13 @@
+doxy: loadConfig $(addprefix doxy-sub-projet-, $(SUB_PROJET))
+	@ cd ./doxygen/ && doxygen
+
+doxy-sub-projet-./%: 
+	@ sed -i 's/TAGFILES *=\(.*\)/TAGFILES = \1 "..\/$(subst /,\/,$(subst doxy-sub-projet-,,$@))\/doxygen\/tags.tag=.\/generated_Doxygen\/html"/g' ./doxygen/Doxyfile && \
+	cd $(subst doxy-sub-projet-, ,$@) && \
+	touch ./doxygen/tags.tag && \
+	make doxy
+
+
+loadConfig:
+	@ sed -i 's/PROJECT_NAME *= *".*"/PROJECT_NAME = "$(PROJECT_NAME)"/g' ./doxygen/Doxyfile
+	@ sed -i 's/PROJECT_NUMBER *= *[0-9.]*/PROJECT_NUMBER = $(VERSION)/g' ./doxygen/Doxyfile
