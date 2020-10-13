@@ -1,0 +1,13 @@
+# Trouve la position d'un mot dans une liste
+_pos =  $(if $(findstring $1,$2),$(call _pos,$1,\
+       		$(wordlist 2,$(words $2),$2),x $3),$3)
+pos=$(words $(call _$0,$1,$2))
+
+### search todo
+TODO:
+	@ for file in $(SRC) $(HEADER); do \
+			cat -n $$file| grep TODO | \
+			sed -e "s/ *\([0-9][0-9]*\).*TODO[^a-zA-Z0-9]*\(.*\)/% Line \1 \n\t "`printf "\033[34m"`"\2"`printf "\033[0m"`"/" | \
+			sed -e "s/%/\n"`printf "\033[91m"`$$(echo $$file | rev | cut -d'/' -f1 | rev )" `printf "\033[0m"`/";\
+		done
+
