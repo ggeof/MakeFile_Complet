@@ -1,12 +1,16 @@
 PROJECT_NAME = 
-SHORT_PROJECT_NAME = 
+SHORT_PROJECT_NAME =
+VERSION = 1.0.0
 SUB_PROJET =
 
 
-SRC=$(wildcard ./src/[^~]*/*.cpp | ./src/*.cpp)
+SRC= $(wildcard ./src/[^~]*/*.cpp | ./src/*.cpp)
 OBJ= $(SRC: ./src/*/%.cpp=./bin/%.o)
 
 include Makefile_Files/Makefile_TODO
+include Makefile_Files/Makefile_Nettoyage
+include Makefile_Files/Makefile_Doxygene
+include Makefile_Files/Makefile_Compilation
 
 
 ### Helper 
