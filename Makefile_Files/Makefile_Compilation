@@ -1,0 +1,38 @@
+CC=g++
+
+MODEFLAG=
+CFLAGS= -ansi -pedantic -std=c++17 -I
+
+OBJ= $(patsubst src/%.cpp, ./bin/%.o, $(SRC))
+ 
+LIBS = 
+
+all: preparation $(EXEC)
+
+### Préparation de la compilation
+debug : defDeb all
+
+defDeb:
+	$(eval MODEFLAG += -DDEBUG)
+	$(eval CFLAGS += -m32 -g -fno-inline -fno-omit-frame-pointer -W -Wall -Wno-unknown-pragmas)
+
+release : defRelease all
+
+defRelease:
+	$(eval MODEFLAG += -DRELEASE)
+	$(eval CFLAGS += -s)
+
+preparation: 
+	@ mkdir -p ./bin/ $(patsubst src/%, bin/%, $(dir $(SRC)))
+
+
+	
+### Compilation
+$(SUB_PROJET) :  $(OBJ)
+	@ $(CC) $(CFLAGS) $(MODEFLAG) -o $@  $^ $(LIBS)
+	@ echo "Compilation Réussite !" 
+  
+bin/%.o: src/%.cpp
+	@ $(CC) $(CFLAGS) $(MODEFLAG) -o $@ -c  $< $(LIBS)
+	@ echo "\033[91m" $$(((($(call pos, $<, $(SRC)))* 100/$(words $(SRC))) ))% effectué ! "\033[0m" \
+
