@@ -1,39 +1,23 @@
-CC=g++
-EXEC=EXEC
-CFLAGS= -g -W -Wall -ansi -pedantic -std=c++11
-MODEFLAG=-DRELEASE
+PROJECT_NAME = 
+SHORT_PROJECT_NAME = 
+SUB_PROJET =
+
+
 SRC=$(wildcard ./src/[^~]*/*.cpp | ./src/*.cpp)
 OBJ= $(SRC: ./src/*/%.cpp=./bin/%.o)
 
-LIBS = 
+include Makefile_Files/Makefile_TODO
 
 
-### Compilation
-
-all: $(EXEC)
-
-debug : defDeb $(EXEC)
-
-defDeb:
-	$(eval MODEFLAG = -DDEBUG)
-
-release : all
-
-	
-### Compilation
-
-$(EXEC) : $(OBJ)
-	$(CC) $(CFLAGS) $(MODEFLAG) -o $@  $^ $(LIBS)
-
-%.o: %.c
-	$(CC) $(CFLAGS) $(MODEFLAG) $(INCPATH)  -o $@ -c  $< $(LIBS)
-
-
-#### Netoyer
-.PHONY: clean mrproper
-
-clean:
-	@ rm -rf ./bin/*
-
-mrproper: clean
-	@ rm -rf $(EXEC)
+### Helper 
+help:
+	@ echo "All targets available :"
+	@ echo "	- debug : compil the project in debug"
+	@ echo "	- release : compil the project in release"
+	@ echo ""
+	@ echo "	- clean : delete all bin"
+	@ echo "	- mrproper : delete all bin and executable and files doxygen"
+	@ echo ""
+	@ echo "	- help : Return this text"
+	@ echo "	- TODO : Return the list of TODO in the project"
+	@ echo "	- doxy : Generated the documentation Doxygen"
