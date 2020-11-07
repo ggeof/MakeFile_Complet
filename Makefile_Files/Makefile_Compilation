@@ -1,5 +1,7 @@
 CC=g++
 
+EXEC = $(SHORT_PROJECT_NAME)
+
 MODEFLAG=
 CFLAGS= -ansi -pedantic -std=c++17 -I
 
@@ -25,6 +27,10 @@ defRelease:
 preparation: 
 	@ mkdir -p ./bin/ $(patsubst src/%, bin/%, $(dir $(SRC)))
 
+
+$(EXEC) :  $(OBJ)
+	@ $(CC) $(CFLAGS) $(MODEFLAG) -o $@  $^ $(LIBS)
+	@ echo "Compilation Réussite !" 
 
 	
 ### Compilation
