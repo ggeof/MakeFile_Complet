@@ -31,11 +31,6 @@ preparation:
 $(EXEC) :  $(OBJ)
 	@ $(CC) $(CFLAGS) $(MODEFLAG) -o $@  $^ $(LIBS)
 	@ echo "Compilation Réussite !" 
-	
-# Trouve la position d'un mot dans une liste
-_pos =  $(if $(findstring $1,$2),$(call _pos,$1,\
-       		$(wordlist 2,$(words $2),$2),x $3),$3)
-pos=$(words $(call _$0,$1,$2))
 
 	
 ### Compilation
@@ -43,7 +38,13 @@ $(SUB_PROJET) :  $(OBJ)
 	@ $(CC) $(CFLAGS) $(MODEFLAG) -o $@  $^ $(LIBS)
 	@ echo "Compilation Réussite !" 
   
+	
+# Trouve la position d'un mot dans une liste
+_pos =  $(if $(findstring $1,$2),$(call _pos,$1,\
+       		$(wordlist 2,$(words $2),$2),x $3),$3)
+pos=$(words $(call _$0,$1,$2))
+
 bin/%.o: src/%.cpp
 	@ $(CC) $(CFLAGS) $(MODEFLAG) -o $@ -c  $< $(LIBS)
-	@ echo "\033[91m" $$(((($(call pos, $<, $(SRC)))* 100/$(words $(SRC))) ))% effectué ! "\033[0m" \
+	@ echo "\033[91m" $$((( ($(call pos, $<, $(SRC)) * 100) / $(words $(SRC))) ))% effectué ! "\033[0m" \
 

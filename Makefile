@@ -3,9 +3,7 @@ SHORT_PROJECT_NAME =
 VERSION = 1.0.0
 SUB_PROJET =
 
-
-SRC= $(wildcard ./src/[^~]*/*.cpp | ./src/*.cpp)
-OBJ= $(SRC: ./src/*/%.cpp=./bin/%.o)
+SRC= $(wildcard src/[^~]*/*.cpp | src/*.cpp)
 
 include Makefile_Files/Makefile_TODO
 include Makefile_Files/Makefile_Nettoyage
