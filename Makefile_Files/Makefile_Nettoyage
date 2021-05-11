@@ -4,15 +4,12 @@
 ### Nettoyage de la compilation 
 clean:
 	@ rm -rf $(EXEC)
-	@ rm -rf ./bin
+	@ rm -rf ./log/*
+	@ rm -rf ./bin/*
 
-### Nettoyage complet
 mrproper: clean $(addprefix clean-sub-projet-, $(SUB_PROJET)) 
 	@ cd ./Test_Unitaire >/dev/null && make mrproper
-	@ rm -rf ./doxygen/generated_Doxygen/*
-	@ rm -f ./doxygen/tags.tag
 
-### Nettoyage des sous projet
 clean-sub-projet-./%: 
-	@ cd $(subst clean-sub-projet-, ,$@) && \
-	make clean
+	@ cd $(subst clean-sub-projet-, ,$@) && make clean
+
